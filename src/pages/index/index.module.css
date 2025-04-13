@@ -1,0 +1,70 @@
+:root {
+  --index-page-header-height: 40px;
+  --index-page-header-logo-size: 24px;
+  --index-page-middle-static-height: 300px;
+}
+
+.pageContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.pageHeader {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  flex: none;
+  height: var(--index-page-header-height);
+  padding: 0 var(--common-padding);
+}
+.pageHeaderLogo {
+  width: var(--index-page-header-logo-size);
+  height: var(--index-page-header-logo-size);
+  background-color: #ddd;
+  border-radius: 8px;
+}
+.pageHeaderText {
+  color: #409eff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.pageMiddleStatic {
+  position: relative;
+  display: flex;
+  width: 100%;
+  /* height: var(--index-page-middle-static-height); */
+  min-height: 320px;
+  flex-grow: 1;
+  height: 1px;
+  height: auto;
+  background-color: #ddd;
+}
+
+.pageBottomBiz {
+  /*  */
+}
+
+.form {
+  width: calc(100% - var(--common-padding) * 2);
+  margin: 0 var(--common-padding);
+  padding-top: var(--common-padding);
+}
+
+.formBottomItem :global {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 18px;
+  & > .next-col {
+    width: 100%;
+    max-width: 100%;
+    flex: 1;
+  }
+}

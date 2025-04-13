@@ -1,12 +1,31 @@
 import { definePageConfig } from 'ice';
 
-export default function Dashboard() {
-  return <div>Index</div>;
+import { FormComp } from './FormComp';
+
+import {
+  //
+  PageTitle,
+} from './config';
+
+import styles from './index.module.css';
+
+export default function Index() {
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.pageHeader}>
+        <div className={styles.pageHeaderLogo} />
+        <div className={styles.pageHeaderText}>{PageTitle}</div>
+      </div>
+      <div className={styles.pageMiddleStatic} />
+      <div className={`${styles.pageBottomBiz} gl-cls-block`}>
+        <FormComp />
+      </div>
+    </div>
+  );
 }
 
 export const pageConfig = definePageConfig(() => {
   return {
-    auth: ['admin', 'user'],
-    title: '工作台',
+    title: '购买',
   };
 });

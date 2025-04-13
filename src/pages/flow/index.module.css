@@ -1,0 +1,58 @@
+.pageContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.itemLabel {
+  position: relative;
+  height: 14px;
+  margin: calc(var(--common-padding) * 2) var(--common-padding) 0;
+  color: var(--flow-page-main-color);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  text-indent: 10px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 14px;
+    background-color: var(--flow-page-main-color);
+    border-radius: 2px;
+  }
+}
+
+.itemValue {
+  color: var(--flow-page-main-color);
+}
+
+.payBtnWrap {
+  position: relative;
+  padding: var(--common-padding);
+}
+
+.payBtn {
+  width: 100%;
+}
+
+.pageNotMatched {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+  z-index: 999;
+}
+
+.pageNotMatchedTxt {
+  margin-top: 160px;
+  font-size: 16px;
+  text-align: center;
+}
