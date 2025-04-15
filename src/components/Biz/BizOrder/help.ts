@@ -12,7 +12,7 @@ export const buildFlowPageUrl = ({
   pageParams: TypePageParams;
   platform: string;
 }) => {
-  const fullPathUrl = `${pageOrderHref.split('/order?')?.[0] || ''}/flow`;
+  const fullPathUrl = `${pageOrderHref.split('/order?')?.[0] || ''}/flow-2`;
   const str = encodeParamsAsStr({
     ...pageParams,
     platform,
