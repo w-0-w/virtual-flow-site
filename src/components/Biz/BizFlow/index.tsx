@@ -233,7 +233,7 @@ export function BizFlow() {
       ) : null}
       {platformMatched ? null : (
         <div className={styles.pageNotMatched}>
-          <span className={styles.pageNotMatchedTxt}>Loading...</span>
+          <span className={styles.pageNotMatchedTxt}>Loading....</span>
         </div>
       )}
     </div>
