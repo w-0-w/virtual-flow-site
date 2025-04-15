@@ -5,19 +5,19 @@ import styles from './step.module.css';
 
 export function StepOne({
   platform,
-  payAddr,
+  displayAddr,
   amount,
   onPayNowClick,
 }: {
   platform: string;
-  payAddr: string;
+  displayAddr: string;
   amount: string;
   onPayNowClick: () => void;
 }) {
   return (
     <div className={styles.stepOneWrap}>
       <div className={styles.stepOneItemLabel}>收款地址</div>
-      <div className={`${styles.stepOneItemValue} gl-cls-block`}>{payAddr}</div>
+      <div className={`${styles.stepOneItemValue} gl-cls-block`}>{displayAddr}</div>
       <div className={styles.stepOneItemLabel}>金额</div>
       <div className={`${styles.stepOneItemValue} gl-cls-block`}>{amount}</div>
       <div className={styles.stepOnePayBtnWrap}>
@@ -45,13 +45,13 @@ export function StepOne({
 
 export function StepTwo({
   platform,
-  // payAddr,
+  // displayAddr,
   amount,
   onConfirmClick,
   onCancelClick,
 }: {
   platform: string;
-  payAddr: string;
+  displayAddr: string;
   amount: string;
   onConfirmClick: () => void;
   onCancelClick: () => void;

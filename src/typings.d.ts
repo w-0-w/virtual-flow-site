@@ -40,6 +40,10 @@ type TypeChain = '' | 'eth' | 'bsc' | 'tron' | 'okxc';
 type TypeFlowInfoItem = {
   wallet: TypeWallet;
   chain: TypeChain;
+  uca: {
+    test: string;
+    main: string;
+  };
   trxLimit: {
     value: number;
     readable: string;

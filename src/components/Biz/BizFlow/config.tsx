@@ -13,6 +13,12 @@ export const Infos: Record<
   tronlink: {
     wallet: 'tronLink',
     chain: 'tron',
+    uca: {
+      // Nile测试网USDT合约地址
+      test: 'TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf',
+      // 正式地址
+      main: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
+    },
     trxLimit: {
       value: 25000000,
       readable: '2.5 TRX',
