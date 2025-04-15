@@ -108,7 +108,7 @@ export function FormComp() {
         orderStr: generateOrder(),
         amountStr: `${totalAmount}`,
       });
-      location.href = `/order?_=${str}`;
+      location.href = `/site/order?_=${str}`;
     }
   };
 
