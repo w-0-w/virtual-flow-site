@@ -4,11 +4,11 @@
   padding-top: var(--common-padding);
 }
 
-.formCompBottomItem :global {
+.formCompBottomItem {
   width: 100%;
   max-width: 100%;
   margin-top: 18px;
-  & > .next-col {
+  &:global > .next-col {
     width: 100%;
     max-width: 100%;
     flex: 1;
