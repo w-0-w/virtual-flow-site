@@ -4,7 +4,9 @@
   "description": "Site of Virtual Flow.",
   "scripts": {
     "start": "ice start --speedup",
+    "dev-no-mock": "ice start --speedup --no-mock",
     "build": "ice build",
+    "deploy": "git pull && npm i && npm run build",
     "eslint": "eslint ./src --cache --ext .js,.jsx,.ts,.tsx",
     "eslint:fix": "npm run eslint -- --fix",
     "stylelint": "stylelint \"src/**/*.{css,scss,less}\" --cache",
