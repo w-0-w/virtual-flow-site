@@ -14,7 +14,15 @@
   /* flow page */
   --flow-page-main-color: #888;
   /* tronlink */
+  /* 按钮色 */
   --tronlink-color: rgb(28, 33, 50);
+  /* 按钮加载色 */
+  --tronlink-loading-color: rgb(197 198 213);
+  /* 按钮加载动画 1 */
+  --tronlink-blue-color: rgb(33, 70, 161);
+  /* 按钮加载动画 2 */
+  --tronlink-white-color: rgb(255, 255, 255);
+  /* 圆角 */
   --tronlink-borderradius: 12px;
 }
 

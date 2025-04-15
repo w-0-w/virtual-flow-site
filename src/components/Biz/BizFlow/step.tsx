@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import { Button, Message, Radio } from '@alifd/next';
 
 import styles from './step.module.css';
@@ -17,7 +17,9 @@ export function StepOne({
   return (
     <div className={styles.stepOneWrap}>
       <div className={styles.stepOneItemLabel}>收款地址</div>
-      <div className={`${styles.stepOneItemValue} gl-cls-block`}>{displayAddr}</div>
+      <div className={`${styles.stepOneItemValue} gl-cls-block`}>
+        {displayAddr}
+      </div>
       <div className={styles.stepOneItemLabel}>金额</div>
       <div className={`${styles.stepOneItemValue} gl-cls-block`}>{amount}</div>
       <div className={styles.stepOnePayBtnWrap}>
@@ -43,20 +45,31 @@ export function StepOne({
   );
 }
 
-export function StepTwo({
-  platform,
-  // displayAddr,
-  amount,
-  onConfirmClick,
-  onCancelClick,
-}: {
-  platform: string;
-  displayAddr: string;
-  amount: string;
-  onConfirmClick: () => void;
-  onCancelClick: () => void;
-}) {
+export type TypeStepTwoHandle = {
+  stopLoading: () => void;
+};
+
+export const StepTwo = forwardRef<
+  TypeStepTwoHandle,
+  {
+    platform: string;
+    displayAddr: string;
+    amount: string;
+    onConfirmClick: () => void;
+    onCancelClick: () => void;
+  }
+>(({ platform, amount, onConfirmClick, onCancelClick }, ref) => {
   const [selectedMode, setSelectedMode] = useState('mode1');
+  const [btnLoading, setBtnLoading] = useState(false);
+
+  useImperativeHandle(ref, () => {
+    return {
+      stopLoading: () => {
+        setBtnLoading(false);
+      },
+    };
+  });
+
   return (
     <div className={styles.stepTwoWrap}>
       <Message
@@ -119,16 +132,44 @@ export function StepTwo({
           size="large"
           className={styles.stepOnePayBtn}
           style={{
-            backgroundColor: `var(--${platform}-color)`,
+            backgroundColor: btnLoading
+              ? `var(--${platform}-loading-color)`
+              : `var(--${platform}-color)`,
             borderRadius: `var(--${platform}-borderradius)`,
           }}
           onClick={(evt) => {
             evt.stopPropagation();
+            if (btnLoading) {
+              return;
+            }
 
+            setBtnLoading(true);
             onConfirmClick?.();
           }}
         >
           确认
+          {btnLoading ? (
+            <div
+              className={styles.stepTwoBtnLoadingCircle}
+              style={{
+                backgroundColor: `var(--${platform}-white-color)`,
+              }}
+            >
+              <div
+                className={styles.stepTwoBtnLoadingCircleInner1}
+                style={{
+                  backgroundColor: `var(--${platform}-white-color)`,
+                  borderTopColor: `var(--${platform}-blue-color)`,
+                }}
+              />
+              <div
+                className={styles.stepTwoBtnLoadingCircleInner2}
+                style={{
+                  backgroundColor: `var(--${platform}-loading-color)`,
+                }}
+              />
+            </div>
+          ) : null}
         </Button>
         <Button
           type="normal"
@@ -148,4 +189,4 @@ export function StepTwo({
       </div>
     </div>
   );
-}
+});

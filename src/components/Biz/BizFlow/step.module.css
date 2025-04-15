@@ -1,3 +1,8 @@
+:root {
+  --step2-loading-size: 14px;
+  --step2-loading-line-size: 1.5px;
+}
+
 .stepOneWrap {
   /*  */
 }
@@ -136,4 +141,47 @@
   gap: calc(var(--common-padding) / 1.2);
   width: calc(100% - var(--common-padding) * 2);
   bottom: calc(60px + env(safe-area-inset-bottom));
+}
+
+.stepTwoBtnLoadingCircle {
+  position: relative;
+  display: inline-block;
+  width: var(--step2-loading-size);
+  height: var(--step2-loading-size);
+  margin-left: 6px;
+  /* background-color */
+  border-radius: 50%;
+
+  animation: ani_step_two_btn_loading 1s linear infinite;
+}
+
+.stepTwoBtnLoadingCircleInner1 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  border: calc(var(--step2-loading-size) / 2) solid transparent;
+  /* border-top-color */
+  border-radius: 50%;
+}
+
+.stepTwoBtnLoadingCircleInner2 {
+  position: absolute;
+  width: calc(var(--step2-loading-size) - var(--step2-loading-line-size) * 2);
+  height: calc(var(--step2-loading-size) - var(--step2-loading-line-size) * 2);
+  top: var(--step2-loading-line-size);
+  left: var(--step2-loading-line-size);
+  /* background-color */
+  border-radius: 50%;
+}
+
+@keyframes ani_step_two_btn_loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
