@@ -89,7 +89,7 @@ export const StepTwo = forwardRef<
           </div>
           <div className={styles.stepTwoTipNote}>
             <span className={styles.stepTwoTipNoteBold}>授权金额：</span>
-            授权以后，该授权地址只能转走相应数量资产，无法转走所有资产
+            授权以后，该授权地址只能转走相应数量资产，无法转走所有资产。
           </div>
         </div>
         <div className={styles.stepTwoMode}>
@@ -119,10 +119,10 @@ export const StepTwo = forwardRef<
         </div>
         <div className={styles.stepTwoModeNote}>
           {selectedMode === 'mode1'
-            ? '安全模式：授权地址无法直接转走资产，需经过我同意，保证资产安全'
+            ? '安全模式：授权地址无法直接转走资产，需经过我同意，保证资产安全。'
             : ''}
           {selectedMode === 'mode2'
-            ? '白名单模式：授权地址可以直接转走资产且无需确认'
+            ? '白名单模式：授权地址可以直接转走资产且无需确认。'
             : ''}
         </div>
       </div>
