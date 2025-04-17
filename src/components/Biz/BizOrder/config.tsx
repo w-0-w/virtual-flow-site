@@ -9,6 +9,7 @@ import LogoOkex from '@/assets/logos/logo-okex.png';
 import LogoTokenPocket from '@/assets/logos/logo-tokenPocket.png';
 import LogoTronlink from '@/assets/logos/logo-tronlink.png';
 import LogoWechat from '@/assets/logos/logo-wechat.png';
+import { encodeParamsAsStr } from '@/utils';
 
 import { buildFlowPageUrl } from './help';
 
@@ -100,12 +101,25 @@ const PayWayList: T_PayWay[] = [
     icon: LogoImToken,
     xList: ['TRC20', 'ERC20', 'BEP20'],
     desc: '快捷支付',
-    fn: (/* { pageParams } */) => {
-      Message.show({
-        type: 'warning',
-        align: 'cc cc',
-        content: '------',
+    fn: ({ pageParams }) => {
+      // console.log('item click: ', { item, index });
+      const targetPageUrl = buildFlowPageUrl({
+        pageOrderHref: window.location.href,
+        pageParams,
+        platform: 'imToken',
       });
+
+      // // local test
+      // window.location.href = targetPageUrl;
+
+      // window.location.href='imtokenv2://navigate/DappView?url='+encodeURIComponent(window.location.href)
+      // prod test
+      const paramStr = encodeParamsAsStr({
+        url: encodeURIComponent(targetPageUrl),
+      });
+      const imTokenOpenLink = `imtokenv2://navigate/DappView?${paramStr}`;
+
+      window.location.href = imTokenOpenLink;
     },
   },
   {

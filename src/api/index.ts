@@ -22,3 +22,5 @@ export const updateUserAddr = async (addr = '') => {
     return null;
   }
 };
+
+// /domain/get

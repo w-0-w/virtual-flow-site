@@ -4,6 +4,7 @@ interface Window {
   tron: any;
   tronLink: any;
   tronWeb: any;
+  imToken: any;
 }
 
 type TypePlatform =
