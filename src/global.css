@@ -14,7 +14,7 @@
   --common-line-color: #eee;
   /* flow page */
   --flow-page-main-color: #888;
-  /* tronlink */
+  /* - tronlink ----------------------------------------- */
   /* 按钮色 */
   --tronlink-color: rgb(28, 33, 50);
   /* 按钮加载色 */
@@ -25,6 +25,17 @@
   --tronlink-white-color: rgb(255, 255, 255);
   /* 圆角 */
   --tronlink-borderradius: 12px;
+  /* - imToken ------------------------------------------ */
+  /* 按钮色 */
+  --imToken-color: rgb(11, 102, 255);
+  /* 按钮加载色 */
+  --imToken-loading-color: rgb(197 198 213);
+  /* 按钮加载动画 1 */
+  --imToken-blue-color: rgb(33, 70, 161);
+  /* 按钮加载动画 2 */
+  --imToken-white-color: rgb(255, 255, 255);
+  /* 圆角 */
+  --imToken-borderradius: 12px;
 }
 
 html,

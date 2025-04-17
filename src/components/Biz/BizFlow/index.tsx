@@ -64,6 +64,14 @@ export function BizFlow() {
         setChain(Infos.imToken.chain);
         clearUseInterval?.();
         setPlatformMatched(true);
+        // window.tronWeb?.trx
+        //   ?.getBalance(window.tronWeb?.defaultAddress?.base58)
+        //   ?.then((a) => {
+        //     setTempInfo({
+        //       addr: window.tronWeb?.defaultAddress?.base58 || '-',
+        //       content: `TRX余额：${a / 1000000}`,
+        //     });
+        //   });
       } else {
         // Message.show({
         //   type: 'warning',

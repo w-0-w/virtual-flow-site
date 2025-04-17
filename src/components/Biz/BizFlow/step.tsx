@@ -97,6 +97,7 @@ export const StepTwo = forwardRef<
             <span className={styles.stepTwoModeLabelFlag}>*</span>授权模式
           </div>
           <Radio.Group
+            className={`nrb-${platform}`}
             value={selectedMode}
             shape="button"
             onChange={(val) => {

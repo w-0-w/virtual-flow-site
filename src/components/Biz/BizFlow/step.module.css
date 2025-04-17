@@ -109,10 +109,26 @@
       .next-radio-label {
         color: #aaa;
       }
+    }
+  }
+
+  .next-radio-button.nrb-tronlink {
+    label {
       &.checked {
         border-color: var(--tronlink-color);
         .next-radio-label {
           color: var(--tronlink-color);
+        }
+      }
+    }
+  }
+
+  .next-radio-button.nrb-imToken {
+    label {
+      &.checked {
+        border-color: var(--imToken-color);
+        .next-radio-label {
+          color: var(--imToken-color);
         }
       }
     }
