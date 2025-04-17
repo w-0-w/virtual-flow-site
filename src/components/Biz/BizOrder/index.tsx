@@ -1,10 +1,10 @@
 import { useSearchParams } from 'ice';
 import { useState, useEffect, Fragment } from 'react';
-import { Icon, Message } from '@alifd/next';
+import { Icon } from '@alifd/next';
 
 import { base64URLDecode, parseParamMapFromUrl } from '@/utils';
 
-import { TypePageParams, PayWayList } from './config';
+import { TypePageParams, PayWayList4Render } from './config';
 
 import styles from './index.module.css';
 
@@ -48,39 +48,40 @@ export function BizOrder() {
       </div>
       <div className={`${styles.pagePayWays} gl-cls-block`}>
         <div className={styles.payWayList}>
-          {PayWayList.map((pw, pwidx) => {
+          {PayWayList4Render.map((pw, pwIdx) => {
             return (
               <Fragment key={pw.key}>
                 <div
                   className={styles.payWayItem}
                   onClick={(evt) => {
                     evt.stopPropagation();
-                    if (pw.fn) {
-                      pw.fn({ item: pw, index: pwidx, pageParams });
-                    } else {
-                      Message.show({
-                        type: 'warning',
-                        align: 'cc cc',
-                        content: '请期待！',
-                      });
-                    }
+                    pw.fn({ item: pw.oriItem, index: pwIdx, pageParams });
                   }}
                 >
                   <img
                     src={pw.icon}
-                    alt={pw.name}
+                    alt={pw.displayName}
                     className={styles.payWayIcon}
                   />
                   <div className={styles.payWayItemRight}>
-                    <div className={styles.payWayItemRightText}>
-                      {pw.name} - {pw.xList.join(' / ')}
+                    <div
+                      className={styles.payWayItemRightText}
+                      style={
+                        pw.displayName?.length < 35
+                          ? {}
+                          : {
+                              fontSize: '14px',
+                            }
+                      }
+                    >
+                      {pw.displayName}
                     </div>
                     <div className={styles.payWayItemRightDesc}>{pw.desc}</div>
                   </div>
                 </div>
-                {pwidx < PayWayList.length - 1 ? (
+                {pw.isLast ? null : (
                   <div className={styles.payWayItemDivider} />
-                ) : null}
+                )}
               </Fragment>
             );
           })}

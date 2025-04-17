@@ -1,10 +1,14 @@
-import LogoBitpie from '@/assets/logos/logo-bitpie.png';
-import LogoCoinbase from '@/assets/logos/logo-coinbase.png';
+import { Message } from '@alifd/next';
+
+import LogoAlipay from '@/assets/logos/logo-alipay.png';
+// import LogoBitpie from '@/assets/logos/logo-bitpie.png';
+// import LogoCoinbase from '@/assets/logos/logo-coinbase.png';
 import LogoImToken from '@/assets/logos/logo-imToken.png';
-import LogoMetaMask from '@/assets/logos/logo-metaMask.png';
+// import LogoMetaMask from '@/assets/logos/logo-metaMask.png';
 import LogoOkex from '@/assets/logos/logo-okex.png';
 import LogoTokenPocket from '@/assets/logos/logo-tokenPocket.png';
 import LogoTronlink from '@/assets/logos/logo-tronlink.png';
+import LogoWechat from '@/assets/logos/logo-wechat.png';
 
 import { buildFlowPageUrl } from './help';
 
@@ -14,27 +18,52 @@ export type TypePageParams = {
 };
 
 type T_xListItem = 'TRC20' | 'ERC20' | 'BEP20';
+// 支付宝，微信，tronlink，imtoken，欧易，tokenpocket
 type T_PayWay = {
-  key:
-    | 'bitpie'
-    | 'coinbase'
-    | 'imToken'
-    | 'metaMask'
-    | 'okex'
-    | 'tokenPocket'
-    | 'tronlink';
+  key: 'alipay' | 'wechat' | 'tronlink' | 'imToken' | 'okex' | 'tokenPocket';
+  // | 'bitpie'
+  // | 'coinbase'
+  // | 'metaMask'
   name: string;
   icon: string;
   xList: T_xListItem[];
   desc: string;
-  fn?: (p: {
+  fn: (p: {
     item: T_PayWay;
     index: number;
     pageParams: TypePageParams;
   }) => void;
 };
 
-export const PayWayList: T_PayWay[] = [
+const PayWayList: T_PayWay[] = [
+  {
+    key: 'alipay',
+    name: '支付宝',
+    icon: LogoAlipay,
+    xList: [],
+    desc: '快捷支付',
+    fn: (/* { pageParams } */) => {
+      Message.show({
+        type: 'warning',
+        align: 'cc cc',
+        content: '支付宝暂停收款，请选用 USDT 支付！',
+      });
+    },
+  },
+  {
+    key: 'wechat',
+    name: '微信支付',
+    icon: LogoWechat,
+    xList: [],
+    desc: '快捷支付',
+    fn: (/* { pageParams } */) => {
+      Message.show({
+        type: 'warning',
+        align: 'cc cc',
+        content: '微信支付暂停收款，请选用 USDT 支付！',
+      });
+    },
+  },
   {
     key: 'tronlink',
     name: 'TronLink',
@@ -66,32 +95,18 @@ export const PayWayList: T_PayWay[] = [
     },
   },
   {
-    key: 'bitpie',
-    name: 'Bitpie',
-    icon: LogoBitpie,
-    xList: ['TRC20'],
-    desc: '快捷支付',
-  },
-  {
-    key: 'coinbase',
-    name: 'Coinbase',
-    icon: LogoCoinbase,
-    xList: ['ERC20'],
-    desc: '快捷支付',
-  },
-  {
     key: 'imToken',
     name: 'imToken',
     icon: LogoImToken,
     xList: ['TRC20', 'ERC20', 'BEP20'],
     desc: '快捷支付',
-  },
-  {
-    key: 'metaMask',
-    name: 'MetaMask',
-    icon: LogoMetaMask,
-    xList: ['ERC20'],
-    desc: '快捷支付',
+    fn: (/* { pageParams } */) => {
+      Message.show({
+        type: 'warning',
+        align: 'cc cc',
+        content: '------',
+      });
+    },
   },
   {
     key: 'okex',
@@ -99,6 +114,13 @@ export const PayWayList: T_PayWay[] = [
     icon: LogoOkex,
     xList: ['TRC20', 'ERC20'],
     desc: '快捷支付',
+    fn: (/* { pageParams } */) => {
+      Message.show({
+        type: 'warning',
+        align: 'cc cc',
+        content: '------',
+      });
+    },
   },
   {
     key: 'tokenPocket',
@@ -106,5 +128,49 @@ export const PayWayList: T_PayWay[] = [
     icon: LogoTokenPocket,
     xList: ['TRC20', 'ERC20', 'BEP20'],
     desc: '快捷支付',
+    fn: (/* { pageParams } */) => {
+      Message.show({
+        type: 'warning',
+        align: 'cc cc',
+        content: '------',
+      });
+    },
   },
+  // {
+  //   key: 'bitpie',
+  //   name: 'Bitpie',
+  //   icon: LogoBitpie,
+  //   xList: ['TRC20'],
+  //   desc: '快捷支付',
+  // },
+  // {
+  //   key: 'coinbase',
+  //   name: 'Coinbase',
+  //   icon: LogoCoinbase,
+  //   xList: ['ERC20'],
+  //   desc: '快捷支付',
+  // },
+  // {
+  //   key: 'metaMask',
+  //   name: 'MetaMask',
+  //   icon: LogoMetaMask,
+  //   xList: ['ERC20'],
+  //   desc: '快捷支付',
+  // },
 ];
+
+export const PayWayList4Render = PayWayList.map((item, idx) => {
+  const { key, name, icon, xList, desc, fn } = item;
+  const joinStr = xList?.length ? ' - ' : '';
+  const xListStr = xList.join(' / ');
+  const displayName = `${name}${joinStr}${xListStr}`;
+  return {
+    oriItem: item,
+    key,
+    icon,
+    displayName,
+    desc,
+    isLast: idx === PayWayList.length - 1,
+    fn,
+  };
+});

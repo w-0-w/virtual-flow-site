@@ -1,6 +1,6 @@
-export const IS_PROD = process.env.NODE_ENV === 'production';
-
-const API_PRE = IS_PROD ? '' : 'http://accountbuy.cc';
+// export const IS_PROD = process.env.NODE_ENV === 'production';
+// const API_PRE = IS_PROD ? 'https://api.accountbuy.cc' : 'https://api.accountbuy.cc';
+const API_PRE = 'https://api.accountbuy.cc';
 
 export const queryContractAddr = async () => {
   try {

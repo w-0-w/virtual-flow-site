@@ -14,6 +14,9 @@ nginx log
 nginx conf
 /www/server/panel/vhost/nginx/5ma.org.conf
 
+# home
+/www/server/panel/vhost/nginx/node_get_token_app.conf
+
 chmod -R 777 ./build
 
 user root;
