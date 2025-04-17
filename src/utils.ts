@@ -21,11 +21,14 @@ export function base64URLDecode(str) {
   return atob(str);
 }
 
-export const encodeParamsAsStr = (params: Record<string, string>) => {
-  const parStr = Object.keys(params)
+export const paramsStringify = (params: Record<string, string>) => {
+  return Object.keys(params)
     .map((item) => `${item}=${params[item]}`)
     .join('&');
-  return base64URLEncode(parStr);
+};
+
+export const encodeParamsAsStr = (params: Record<string, string>) => {
+  return base64URLEncode(paramsStringify(params));
 };
 
 export const parseParamMapFromUrl = (fullUrl: string) => {

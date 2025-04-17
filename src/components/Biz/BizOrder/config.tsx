@@ -9,7 +9,7 @@ import LogoOkex from '@/assets/logos/logo-okex.png';
 import LogoTokenPocket from '@/assets/logos/logo-tokenPocket.png';
 import LogoTronlink from '@/assets/logos/logo-tronlink.png';
 import LogoWechat from '@/assets/logos/logo-wechat.png';
-import { encodeParamsAsStr } from '@/utils';
+import { encodeParamsAsStr, paramsStringify } from '@/utils';
 
 import { buildFlowPageUrl } from './help';
 
@@ -114,7 +114,7 @@ const PayWayList: T_PayWay[] = [
 
       // window.location.href='imtokenv2://navigate/DappView?url='+encodeURIComponent(window.location.href)
       // prod test
-      const paramStr = encodeParamsAsStr({
+      const paramStr = paramsStringify({
         url: encodeURIComponent(targetPageUrl),
       });
       const imTokenOpenLink = `imtokenv2://navigate/DappView?${paramStr}`;
