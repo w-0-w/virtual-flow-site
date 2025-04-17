@@ -59,7 +59,7 @@ export function BizFlow() {
         // //   align: 'cc cc',
         // //   content: 'TronLink钱包',
         // // });
-      } else if (window.imToken && window.tronWeb) {
+      } else if (window.imToken) {
         setWallet(Infos.imToken.wallet);
         setChain(Infos.imToken.chain);
         clearUseInterval?.();
