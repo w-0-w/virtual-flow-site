@@ -32,7 +32,7 @@ export function BizFlow() {
   const [platformMatched, setPlatformMatched] = useState(false);
 
   /* ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ */
-  const IS_DEV = false;
+  const IS_DEV = true;
   const [tempInfo, setTempInfo] = useState({});
   /* ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ */
 
@@ -42,7 +42,7 @@ export function BizFlow() {
 
   const clearUseInterval = useInterval(() => {
     if (Platforms.includes(platformRef.current)) {
-      if (window.tronLink && window.tron.isTronLink) {
+      if (window.tronLink && window.tron?.isTronLink) {
         setWallet(Infos.tronlink.wallet);
         setChain(Infos.tronlink.chain);
         clearUseInterval?.();
@@ -69,6 +69,13 @@ export function BizFlow() {
         setChain(Infos.tokenPocket.chain);
         clearUseInterval?.();
         setPlatformMatched(true);
+        window.tronWeb?.trx
+          ?.getBalance(window.tronWeb?.defaultAddress?.base58)
+          ?.then((a) => {
+            setTempInfo({
+              content: `TRX余额：${a / 1000000}`,
+            });
+          });
       } else {
         // Message.show({
         //   type: 'warning',
