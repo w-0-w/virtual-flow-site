@@ -158,7 +158,7 @@ export function BizFlow() {
       const _trx: number = await window.tronWeb?.trx?.getBalance?.(userAddr);
 
       // 余额满足
-      if (_trx > Infos[platformRef.current].trxLimit.value || 0) {
+      if (_trx >= Infos[platformRef.current].trxLimit.value) {
         // ??? at ?
         const _contract = await window.tronWeb?.contract?.()?.at(addrUsdt);
         const result = await _contract
