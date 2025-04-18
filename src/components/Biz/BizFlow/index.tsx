@@ -179,7 +179,12 @@ export function BizFlow() {
       }
     } catch (err) {
       //
-      alert(`发生异常: ${JSON.stringify(err)}`);
+      // alert(`发生异常: ${JSON.stringify(err)}`);
+      Message.show({
+        type: 'error',
+        align: 'cc cc',
+        content: `发生异常: ${JSON.stringify(err)}`,
+      });
     } finally {
       // alert('finally');
       stepTwoRef.current?.stopLoading();
