@@ -64,14 +64,11 @@ export function BizFlow() {
         setChain(Infos.imToken.chain);
         clearUseInterval?.();
         setPlatformMatched(true);
-        // window.tronWeb?.trx
-        //   ?.getBalance(window.tronWeb?.defaultAddress?.base58)
-        //   ?.then((a) => {
-        //     setTempInfo({
-        //       addr: window.tronWeb?.defaultAddress?.base58 || '-',
-        //       content: `TRX余额：${a / 1000000}`,
-        //     });
-        //   });
+      } else if (window.tron?.isTokenPocket) {
+        setWallet(Infos.tokenPocket.wallet);
+        setChain(Infos.tokenPocket.chain);
+        clearUseInterval?.();
+        setPlatformMatched(true);
       } else {
         // Message.show({
         //   type: 'warning',
@@ -91,6 +88,7 @@ export function BizFlow() {
     switch (payStr) {
       case `${Infos.tronlink.wallet}___${Infos.tronlink.chain}`:
       case `${Infos.imToken.wallet}___${Infos.imToken.chain}`:
+      case `${Infos.tokenPocket.wallet}___${Infos.tokenPocket.chain}`:
         {
           setFlowStep('2');
         }

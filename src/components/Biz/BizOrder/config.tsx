@@ -142,12 +142,28 @@ const PayWayList: T_PayWay[] = [
     icon: LogoTokenPocket,
     xList: ['TRC20', 'ERC20', 'BEP20'],
     desc: '快捷支付',
-    fn: (/* { pageParams } */) => {
-      Message.show({
-        type: 'warning',
-        align: 'cc cc',
-        content: '------',
+    fn: ({ pageParams }) => {
+      // console.log('item click: ', { item, index });
+      const targetPageUrl = buildFlowPageUrl({
+        pageOrderHref: window.location.href,
+        pageParams,
+        platform: 'tokenPocket',
       });
+
+      // // local test
+      // window.location.href = targetPageUrl;
+
+      // window.location.href=&quot;tpdapp://open?params={\&quot;url\&quot;:\&quot;&quot;+encodeURIComponent(window.location.href)+&quot;\&quot;}&quot;
+      // prod test
+      const pStr = JSON.stringify({
+        url: targetPageUrl,
+      });
+      const paramStr = paramsStringify({
+        params: encodeURIComponent(pStr),
+      });
+      const ptOpenLink = `tpdapp://open?${paramStr}`;
+
+      window.location.href = ptOpenLink;
     },
   },
   // {
