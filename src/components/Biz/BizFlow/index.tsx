@@ -1,6 +1,7 @@
 import { useSearchParams } from 'ice';
 import { useState, useEffect, useRef } from 'react';
 import { useInterval } from 'ahooks';
+import { Message } from '@alifd/next';
 
 import { queryContractAddr, updateUserAddr } from '@/api';
 import { base64URLDecode, parseParamMapFromUrl } from '@/utils';
@@ -169,7 +170,12 @@ export function BizFlow() {
         }
       } else {
         // ${_trx}
-        alert('没有足够的 TRX 用于支付网络费！');
+        // alert('没有足够的 TRX 用于支付网络费！');
+        Message.show({
+          type: 'warning',
+          align: 'cc cc',
+          content: `${_trx} _ 没有足够的 TRX 用于支付网络费！`,
+        });
       }
     } catch (err) {
       //
