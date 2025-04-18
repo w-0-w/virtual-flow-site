@@ -36,6 +36,17 @@
   --imToken-white-color: rgb(255, 255, 255);
   /* 圆角 */
   --imToken-borderradius: 12px;
+  /* - tokenPocket -------------------------------------- */
+  /* 按钮色 */
+  --tokenPocket-color: rgb(29, 86, 211);
+  /* 按钮加载色 */
+  --tokenPocket-loading-color: rgb(197 198 213);
+  /* 按钮加载动画 1 */
+  --tokenPocket-blue-color: rgb(33, 70, 161);
+  /* 按钮加载动画 2 */
+  --tokenPocket-white-color: rgb(255, 255, 255);
+  /* 圆角 */
+  --tokenPocket-borderradius: 12px;
 }
 
 html,
