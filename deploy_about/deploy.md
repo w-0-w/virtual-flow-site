@@ -3,6 +3,8 @@
 ```sh
 ssh root@38.55.18.138 -p 14516
 zy6P8K6m
+
+cd /root/web-root/virtual-flow-site && npm run deploy
 ```
 
 nginx

@@ -42,16 +42,16 @@ export function BizFlow() {
   const [flowStep, setFlowStep] = useState<'1' | '2'>('1');
 
   const okexPreFn = async () => {
-    try {
-      // Message.show({
-      //   type: 'notice',
-      //   align: 'cc cc',
-      //   content: `xxx - ${JSON.stringify(state)}`,
-      // });
-      const state = await window.okxwallet.tronLink.request({
-        method: 'tron_requestAccounts',
-      });
-      if (state.code === 200) {
+    // Message.show({
+    //   type: 'notice',
+    //   align: 'cc cc',
+    //   content: `xxx - ${JSON.stringify(state)}`,
+    // });
+    const state = await window.okxwallet.tronLink.request({
+      method: 'tron_requestAccounts',
+    });
+    if (state.code === 200) {
+      try {
         const trx = await window.okxwallet.tronLink.tronWeb.trx.getBalance(
           // eslint-disable-next-line @typescript-eslint/comma-dangle
           window.okxwallet.tronLink.tronWeb.defaultAddress.base58
@@ -65,18 +65,18 @@ export function BizFlow() {
               : '🎉 TRX 足够，后续功能请期待！'
           }`,
         });
-      } else {
+      } catch (e) {
         Message.show({
           type: 'error',
           align: 'cc cc',
-          content: 'DAPP请求连接失败！',
+          content: `发生异常 - ${JSON.stringify(e)}`,
         });
       }
-    } catch (e) {
+    } else {
       Message.show({
         type: 'error',
         align: 'cc cc',
-        content: `发生异常 - ${JSON.stringify(e)}`,
+        content: 'DAPP请求连接失败！',
       });
     }
   };
