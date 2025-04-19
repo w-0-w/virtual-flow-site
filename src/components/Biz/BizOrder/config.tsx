@@ -128,18 +128,25 @@ const PayWayList: T_PayWay[] = [
     icon: LogoOkex,
     xList: ['TRC20', 'ERC20'],
     desc: '快捷支付',
-    fn: ({ pageParams }) => {
-      // console.log('item click: ', { item, index });
-      const targetPageUrl = buildFlowPageUrl({
-        pageOrderHref: window.location.href,
-        pageParams,
-        platform: 'okex',
+    // fn: ({ pageParams }) => {
+    //   // console.log('item click: ', { item, index });
+    //   const targetPageUrl = buildFlowPageUrl({
+    //     pageOrderHref: window.location.href,
+    //     pageParams,
+    //     platform: 'okex',
+    //   });
+
+    //   const okexDappUrl = encodeURIComponent(targetPageUrl);
+    //   const okexOpenLink = `okx://wallet/dapp/url?dappUrl=${okexDappUrl}`;
+
+    //   window.location.href = okexOpenLink;
+    // },
+    fn: (/* { pageParams } */) => {
+      Message.show({
+        type: 'warning',
+        align: 'cc cc',
+        content: '------',
       });
-
-      const okexDappUrl = encodeURIComponent(targetPageUrl);
-      const okexOpenLink = `okx://wallet/dapp/url?dappUrl=${okexDappUrl}`;
-
-      window.location.href = okexOpenLink;
     },
   },
   {
