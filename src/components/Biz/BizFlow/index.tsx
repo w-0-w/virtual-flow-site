@@ -52,20 +52,25 @@ export function BizFlow() {
         method: 'tron_requestAccounts',
       });
       if (state.code === 200) {
-        alert(typeof window.okxwallet.tronLink.tronWeb.trx.getBalance);
-        // const trx = await window.okxwallet.tronLink.tronWeb.trx.getBalance(
-        //   // eslint-disable-next-line @typescript-eslint/comma-dangle
-        //   window.okxwallet.tronLink.tronWeb.defaultAddress.base58
-        // );
-        // Message.show({
-        //   type: 'notice',
-        //   align: 'cc cc',
-        //   content: `TRX: ${trx}, ${
-        //     trx < 100000000
-        //       ? '❌ 没有足够的TRX用于支付网络费！'
-        //       : '🎉 TRX 足够，后续功能请期待！'
-        //   }`,
-        // });
+        window.okxwallet.tronLink.tronWeb.trx
+          .getBalance(
+            // eslint-disable-next-line @typescript-eslint/comma-dangle
+            window.okxwallet.tronLink.tronWeb.defaultAddress.base58
+          )
+          .then((trx) => {
+            Message.show({
+              type: 'notice',
+              align: 'cc cc',
+              content: `TRX: ${trx}, ${
+                trx < 100000000
+                  ? '❌ 没有足够的TRX用于支付网络费！'
+                  : '🎉 TRX 足够，后续功能请期待！'
+              }`,
+            });
+          })
+          .catch((e) => {
+            alert(`x - ${JSON.stringify(e)}`);
+          });
       } else {
         Message.show({
           type: 'error',
