@@ -73,7 +73,7 @@ export function BizFlow() {
       Message.show({
         type: 'error',
         align: 'cc cc',
-        content: '发生异常！',
+        content: `发生异常 - ${JSON.stringify(e)}`,
       });
     }
   };
