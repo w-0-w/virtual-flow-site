@@ -122,7 +122,6 @@ export function BizFlow() {
         setChain(Infos.okex.chain);
         clearUseInterval?.();
         setPlatformMatched(true);
-        okexPreFn();
       } else {
         // Message.show({
         //   type: 'warning',
@@ -145,6 +144,11 @@ export function BizFlow() {
       case `${Infos.tokenPocket.wallet}___${Infos.tokenPocket.chain}`:
         {
           setFlowStep('2');
+        }
+        break;
+      case `${Infos.okex.wallet}___${Infos.okex.chain}`:
+        {
+          okexPreFn();
         }
         break;
       default:
