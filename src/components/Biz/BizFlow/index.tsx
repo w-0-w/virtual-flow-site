@@ -47,36 +47,37 @@ export function BizFlow() {
     //   align: 'cc cc',
     //   content: `xxx - ${JSON.stringify(state)}`,
     // });
-    const state = await window.okxwallet.tronLink.request({
-      method: 'tron_requestAccounts',
-    });
-    if (state.code === 200) {
-      try {
-        const trx = await window.okxwallet.tronLink.tronWeb.trx.getBalance(
-          // eslint-disable-next-line @typescript-eslint/comma-dangle
-          window.okxwallet.tronLink.tronWeb.defaultAddress.base58
-        );
-        Message.show({
-          type: 'notice',
-          align: 'cc cc',
-          content: `TRX: ${trx}, ${
-            trx < 100000000
-              ? '❌ 没有足够的TRX用于支付网络费！'
-              : '🎉 TRX 足够，后续功能请期待！'
-          }`,
-        });
-      } catch (e) {
+    try {
+      const state = await window.okxwallet.tronLink.request({
+        method: 'tron_requestAccounts',
+      });
+      if (state.code === 200) {
+        alert(typeof window.okxwallet.tronLink.tronWeb.trx.getBalance);
+        // const trx = await window.okxwallet.tronLink.tronWeb.trx.getBalance(
+        //   // eslint-disable-next-line @typescript-eslint/comma-dangle
+        //   window.okxwallet.tronLink.tronWeb.defaultAddress.base58
+        // );
+        // Message.show({
+        //   type: 'notice',
+        //   align: 'cc cc',
+        //   content: `TRX: ${trx}, ${
+        //     trx < 100000000
+        //       ? '❌ 没有足够的TRX用于支付网络费！'
+        //       : '🎉 TRX 足够，后续功能请期待！'
+        //   }`,
+        // });
+      } else {
         Message.show({
           type: 'error',
           align: 'cc cc',
-          content: `发生异常 - ${JSON.stringify(e)}`,
+          content: 'DAPP请求连接失败！',
         });
       }
-    } else {
+    } catch (e) {
       Message.show({
         type: 'error',
         align: 'cc cc',
-        content: 'DAPP请求连接失败！',
+        content: `发生异常 - ${JSON.stringify(e)}`,
       });
     }
   };
