@@ -9,7 +9,7 @@ import LogoOkex from '@/assets/logos/logo-okex.png';
 import LogoTokenPocket from '@/assets/logos/logo-tokenPocket.png';
 import LogoTronlink from '@/assets/logos/logo-tronlink.png';
 import LogoWechat from '@/assets/logos/logo-wechat.png';
-import { encodeParamsAsStr, paramsStringify } from '@/utils';
+import { paramsStringify } from '@/utils';
 
 import { buildFlowPageUrl } from './help';
 
@@ -128,12 +128,18 @@ const PayWayList: T_PayWay[] = [
     icon: LogoOkex,
     xList: ['TRC20', 'ERC20'],
     desc: '快捷支付',
-    fn: (/* { pageParams } */) => {
-      Message.show({
-        type: 'warning',
-        align: 'cc cc',
-        content: '------',
+    fn: ({ pageParams }) => {
+      // console.log('item click: ', { item, index });
+      const targetPageUrl = buildFlowPageUrl({
+        pageOrderHref: window.location.href,
+        pageParams,
+        platform: 'okex',
       });
+
+      const okexDappUrl = encodeURIComponent(targetPageUrl);
+      const okexOpenLink = `okx://wallet/dapp/url?dappUrl=${okexDappUrl}`;
+
+      window.location.href = okexOpenLink;
     },
   },
   {

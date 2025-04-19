@@ -1,7 +1,7 @@
 export const Infos: Record<
   //
   // TypePlatform,
-  'tronlink' | 'imToken' | 'tokenPocket',
+  'tronlink' | 'imToken' | 'okex' | 'tokenPocket',
   TypeFlowInfoItem
 > = {
   // bitpie: null,
@@ -20,7 +20,7 @@ export const Infos: Record<
     },
     trxLimit: {
       value: 25000000,
-      readable: '2.5 TRX',
+      readable: '25 TRX',
     },
     amount:
       '115792089237316195423570985008687907853269984665640564039457584007913129639935',
@@ -34,9 +34,23 @@ export const Infos: Record<
     },
     trxLimit: {
       value: 25000000,
-      readable: '2.5 TRX',
+      readable: '25 TRX',
     },
     amount: '123456789123456789123456789',
+  },
+  okex: {
+    wallet: 'okxwallet',
+    chain: 'tron',
+    uca: {
+      test: 'TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf',
+      main: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
+    },
+    trxLimit: {
+      //     100000000
+      value: 25000000,
+      readable: '25 TRX',
+    },
+    amount: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
   },
   tokenPocket: {
     wallet: 'tokenPocket',
@@ -47,7 +61,7 @@ export const Infos: Record<
     },
     trxLimit: {
       value: 25000000,
-      readable: '2.5 TRX',
+      readable: '25 TRX',
     },
     amount: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
   },

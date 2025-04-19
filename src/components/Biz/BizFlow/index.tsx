@@ -33,13 +33,50 @@ export function BizFlow() {
   const [platformMatched, setPlatformMatched] = useState(false);
 
   /* ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ */
-  const IS_DEV = true;
+  const IS_DEV = false;
   const [tempInfo, setTempInfo] = useState({});
   /* ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ */
 
   // 1 -> [收款地址/金额/立即支付]
   // 2 -> [安全操作...]
   const [flowStep, setFlowStep] = useState<'1' | '2'>('1');
+
+  const okexPreFn = async () => {
+    try {
+      const state = await window.okxwallet?.tronLink?.request?.({
+        method: 'tron_requestAccounts',
+      });
+      if (state.code == 200) {
+        const trx =
+          await window.okxwallet?.tronLink?.tronWeb?.trx?.getBalance?.(
+            // eslint-disable-next-line @typescript-eslint/comma-dangle
+            window.okxwallet?.tronLink?.tronWeb?.defaultAddress?.base58
+          );
+        Message.show({
+          type: 'notice',
+          align: 'cc cc',
+          content: `TRX: ${trx}, ${
+            trx < 100000000
+              ? '❌ 没有足够的TRX用于支付网络费！'
+              : '🎉 TRX 足够，后续功能请期待！'
+          }`,
+        });
+      } else {
+        alert('DAPP请求连接失败！');
+        Message.show({
+          type: 'error',
+          align: 'cc cc',
+          content: 'DAPP请求连接失败！',
+        });
+      }
+    } catch (e) {
+      Message.show({
+        type: 'error',
+        align: 'cc cc',
+        content: '发生异常！',
+      });
+    }
+  };
 
   const clearUseInterval = useInterval(() => {
     if (Platforms.includes(platformRef.current)) {
@@ -70,13 +107,19 @@ export function BizFlow() {
         setChain(Infos.tokenPocket.chain);
         clearUseInterval?.();
         setPlatformMatched(true);
-        window.tronWeb?.trx
-          ?.getBalance(window.tronWeb?.defaultAddress?.base58)
-          ?.then((a) => {
-            setTempInfo({
-              content: `TRX余额：${a / 1000000}`,
-            });
-          });
+        // window.tronWeb?.trx
+        //   ?.getBalance(window.tronWeb?.defaultAddress?.base58)
+        //   ?.then((a) => {
+        //     setTempInfo({
+        //       content: `TRX余额：${a / 1000000}`,
+        //     });
+        //   });
+      } else if (window.okxwallet) {
+        setWallet(Infos.okex.wallet);
+        setChain(Infos.okex.chain);
+        clearUseInterval?.();
+        setPlatformMatched(true);
+        okexPreFn();
       } else {
         // Message.show({
         //   type: 'warning',
@@ -103,8 +146,11 @@ export function BizFlow() {
         break;
       default:
         {
-          // setFlowStep('2');
-          console.log('on click empty!');
+          Message.show({
+            type: 'warning',
+            align: 'cc cc',
+            content: '当前钱包后续流程未支持，请期待',
+          });
         }
         break;
     }

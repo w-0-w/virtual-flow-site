@@ -5,6 +5,7 @@ interface Window {
   tronLink: any;
   tronWeb: any;
   imToken: any;
+  okxwallet: any;
 }
 
 type TypePlatform =
