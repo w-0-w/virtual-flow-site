@@ -12,6 +12,7 @@
   --common-block-border-radius: 12px;
   --common-block-box-shadow: 1px 1px 6px #eee;
   --common-line-color: #eee;
+  --common-main-lg-bg: linear-gradient(to right, #666, #000);
   /* flow page */
   --flow-page-main-color: #888;
   /* - tronlink ----------------------------------------- */
@@ -57,7 +58,7 @@ body,
   margin: 0;
   padding: 0;
   background-color: var(--common-page-bgc);
-  overflow: hidden;
+  overflow: auto;
 }
 
 body {

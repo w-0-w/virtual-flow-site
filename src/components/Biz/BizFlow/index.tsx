@@ -31,6 +31,7 @@ export function BizFlow() {
     amountStr: '',
   });
   const [platformMatched, setPlatformMatched] = useState(false);
+  const [platformEdgeCaseMatched, setPlatformEdgeCaseMatched] = useState(false);
 
   /* ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ */
   const IS_DEV = false;
@@ -136,6 +137,7 @@ export function BizFlow() {
         //   content: '请先安装TronLink钱包',
         // });
         // clearUseInterval?.();
+        setPlatformEdgeCaseMatched(true);
       }
     } else {
       clearUseInterval?.();
@@ -329,6 +331,15 @@ export function BizFlow() {
           <span className={styles.pageNotMatchedTxt}>Loading....</span>
         </div>
       )}
+      {platformEdgeCaseMatched ? (
+        <div className={styles.edgeCaseMatched}>
+          <span className={styles.edgeCaseMatchedTxt}>
+            💡 当前不是波场链钱包账户
+            <br /><br />
+            请切换波场链钱包账户后重试
+          </span>
+        </div>
+      ) : null}
     </div>
   );
 }

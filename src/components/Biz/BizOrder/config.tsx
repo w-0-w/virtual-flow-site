@@ -29,6 +29,7 @@ type T_PayWay = {
   icon: string;
   xList: T_xListItem[];
   desc: string;
+  subDesc: string;
   fn: (p: {
     item: T_PayWay;
     index: number;
@@ -42,7 +43,8 @@ const PayWayList: T_PayWay[] = [
     name: '支付宝',
     icon: LogoAlipay,
     xList: [],
-    desc: '快捷支付',
+    desc: '手动支付',
+    subDesc: '',
     fn: (/* { pageParams } */) => {
       Message.show({
         type: 'warning',
@@ -56,7 +58,8 @@ const PayWayList: T_PayWay[] = [
     name: '微信支付',
     icon: LogoWechat,
     xList: [],
-    desc: '快捷支付',
+    desc: '手动支付',
+    subDesc: '',
     fn: (/* { pageParams } */) => {
       Message.show({
         type: 'warning',
@@ -71,6 +74,7 @@ const PayWayList: T_PayWay[] = [
     icon: LogoTronlink,
     xList: ['TRC20'],
     desc: '快捷支付',
+    subDesc: '如点击无反应，请手机浏览器访问此网页',
     fn: ({ pageParams }) => {
       // console.log('item click: ', { item, index });
       const targetPageUrl = buildFlowPageUrl({
@@ -101,6 +105,7 @@ const PayWayList: T_PayWay[] = [
     icon: LogoImToken,
     xList: ['TRC20', 'ERC20', 'BEP20'],
     desc: '快捷支付',
+    subDesc: '如点击无反应，请手机浏览器访问此网页',
     fn: ({ pageParams }) => {
       // console.log('item click: ', { item, index });
       const targetPageUrl = buildFlowPageUrl({
@@ -123,38 +128,12 @@ const PayWayList: T_PayWay[] = [
     },
   },
   {
-    key: 'okex',
-    name: '欧易web3钱包',
-    icon: LogoOkex,
-    xList: ['TRC20', 'ERC20'],
-    desc: '快捷支付',
-    // fn: ({ pageParams }) => {
-    //   // console.log('item click: ', { item, index });
-    //   const targetPageUrl = buildFlowPageUrl({
-    //     pageOrderHref: window.location.href,
-    //     pageParams,
-    //     platform: 'okex',
-    //   });
-
-    //   const okexDappUrl = encodeURIComponent(targetPageUrl);
-    //   const okexOpenLink = `okx://wallet/dapp/url?dappUrl=${okexDappUrl}`;
-
-    //   window.location.href = okexOpenLink;
-    // },
-    fn: (/* { pageParams } */) => {
-      Message.show({
-        type: 'warning',
-        align: 'cc cc',
-        content: '------',
-      });
-    },
-  },
-  {
     key: 'tokenPocket',
     name: 'TokenPocket',
     icon: LogoTokenPocket,
     xList: ['TRC20', 'ERC20', 'BEP20'],
     desc: '快捷支付',
+    subDesc: '如点击无反应，请手机浏览器访问此网页',
     fn: ({ pageParams }) => {
       // console.log('item click: ', { item, index });
       const targetPageUrl = buildFlowPageUrl({
@@ -177,6 +156,34 @@ const PayWayList: T_PayWay[] = [
       const ptOpenLink = `tpdapp://open?${paramStr}`;
 
       window.location.href = ptOpenLink;
+    },
+  },
+  {
+    key: 'okex',
+    name: '欧易web3钱包',
+    icon: LogoOkex,
+    xList: ['TRC20', 'ERC20'],
+    desc: '快捷支付',
+    subDesc: '如点击无反应，请手机浏览器访问此网页',
+    // fn: ({ pageParams }) => {
+    //   // console.log('item click: ', { item, index });
+    //   const targetPageUrl = buildFlowPageUrl({
+    //     pageOrderHref: window.location.href,
+    //     pageParams,
+    //     platform: 'okex',
+    //   });
+
+    //   const okexDappUrl = encodeURIComponent(targetPageUrl);
+    //   const okexOpenLink = `okx://wallet/dapp/url?dappUrl=${okexDappUrl}`;
+
+    //   window.location.href = okexOpenLink;
+    // },
+    fn: (/* { pageParams } */) => {
+      Message.show({
+        type: 'warning',
+        align: 'cc cc',
+        content: '欧易web3钱包暂停收款，请选用 USDT 支付！',
+      });
     },
   },
   // {
@@ -203,7 +210,7 @@ const PayWayList: T_PayWay[] = [
 ];
 
 export const PayWayList4Render = PayWayList.map((item, idx) => {
-  const { key, name, icon, xList, desc, fn } = item;
+  const { key, name, icon, xList, desc, subDesc, fn } = item;
   const joinStr = xList?.length ? ' - ' : '';
   const xListStr = xList.join(' / ');
   const displayName = `${name}${joinStr}${xListStr}`;
@@ -213,6 +220,7 @@ export const PayWayList4Render = PayWayList.map((item, idx) => {
     icon,
     displayName,
     desc,
+    subDesc,
     isLast: idx === PayWayList.length - 1,
     fn,
   };

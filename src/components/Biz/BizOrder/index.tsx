@@ -76,7 +76,29 @@ export function BizOrder() {
                     >
                       {pw.displayName}
                     </div>
-                    <div className={styles.payWayItemRightDesc}>{pw.desc}</div>
+                    <div
+                      className={styles.payWayItemRightDesc}
+                      style={
+                        pw.subDesc
+                          ? {
+                              color: 'red',
+                            }
+                          : {}
+                      }
+                    >
+                      <span
+                        style={
+                          pw.subDesc
+                            ? {
+                                fontWeight: 'bold',
+                              }
+                            : {}
+                        }
+                      >
+                        {pw.desc}
+                      </span>
+                      {pw.subDesc ? <span> - {pw.subDesc}</span> : null}
+                    </div>
                   </div>
                 </div>
                 {pw.isLast ? null : (

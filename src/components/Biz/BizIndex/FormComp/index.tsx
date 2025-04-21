@@ -82,7 +82,9 @@ export function FormComp() {
     setSelectedCountry(val);
   };
 
-  const onFormQuantityChangeEvt = () => {};
+  const onFormQuantityChangeEvt = () => {
+    setGoodsQuantity((val) => val + 1);
+  };
 
   const onSubmitEvt = (vals, errors) => {
     console.log('onSubmitEvt res: ', {
@@ -154,11 +156,11 @@ export function FormComp() {
       className={styles.formComp}
       fullWidth
       labelCol={{
-        span: 7,
+        span: 8,
       }}
       wrapperCol={{
-        // 24 - 7
-        span: 17,
+        // 24 - 8
+        span: 16,
       }}
       size="medium"
     >
@@ -227,12 +229,17 @@ export function FormComp() {
         disabled={goodsQuantity === -1}
         name="formQuantity"
       >
-        <NumberPicker
-          onChange={onFormQuantityChangeEvt}
-          defaultValue={1}
-          step={1}
-          type="inline"
-        />
+        {goodsQuantity > 0 ? (
+          <NumberPicker
+            value={goodsQuantity}
+            onChange={onFormQuantityChangeEvt}
+            defaultValue={1}
+            step={1}
+            type="inline"
+          />
+        ) : (
+          '-'
+        )}
       </FormItem>
       <FormItem
         {...formItemAttrProps}
