@@ -1,6 +1,6 @@
 import { definePageConfig } from 'ice';
 
-import LogoIcon from '@/assets/logo-icon.png';
+import LogoIcon from '@/assets/icon-logo.png';
 import HomeBanner from '@/assets/home-banner.jpg';
 import { BizCS } from '../BizCS';
 
