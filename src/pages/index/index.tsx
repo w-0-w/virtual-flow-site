@@ -1,5 +1,6 @@
 import { definePageConfig } from 'ice';
 
+import { NAME, PageMeta } from '@/config/page';
 import { BizIndex } from '@/components/Biz/BizIndex';
 
 export default function Index() {
@@ -8,6 +9,7 @@ export default function Index() {
 
 export const pageConfig = definePageConfig(() => {
   return {
-    title: '购买',
+    meta: PageMeta,
+    title: NAME,
   };
 });
