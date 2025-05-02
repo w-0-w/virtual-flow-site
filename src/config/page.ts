@@ -60,7 +60,7 @@ const pageMeta = [
   //   content="https://files.accountboy.com/demon/ablogo-2b1fd2a561c84270b1d1625eee5b8d11.png">
   {
     property: 'og:image',
-    content: 'og-img.png',
+    content: 'https://pbs.twimg.com/media/Gp8Mng8awAEl-Sa?format=png&name=900x900',
   },
   // <meta data-react-helmet="true" name="robots"
   //   content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
