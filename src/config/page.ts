@@ -1,12 +1,12 @@
-export const NAME = '账号通';
+const NAME = '账号通';
 const DESC = `${NAME},提供appleid购买,苹果id购买,推特账号购买,电报Telegram账号购买,TikTok账号购买,各类游戏,社交媒体账号购买批发,购买账号就找${NAME}.`;
 const SITE_URL = 'https://www.easybuys.cc/';
 
-export const PageMeta = [
+const pageMeta = [
   // <meta charset="UTF-8">
   { charset: 'UTF-8' },
   // <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' },
+  { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
   // <meta name="viewport"
   //   content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
   {
@@ -67,3 +67,18 @@ export const PageMeta = [
       'follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
   },
 ];
+
+export const Conf = {
+  '/': {
+    title: '账号通',
+    pageMeta,
+  },
+  '/order': {
+    title: '下单',
+    pageMeta,
+  },
+  '/flow': {
+    title: '立即支付',
+    pageMeta,
+  },
+};

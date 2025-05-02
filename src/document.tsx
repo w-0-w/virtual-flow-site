@@ -1,16 +1,46 @@
-import { Meta, Title, Links, Main, Scripts } from 'ice';
+import {
+  // Meta,
+  // Title,
+  Links,
+  Main,
+  Scripts,
+} from 'ice';
 
-export default function Document() {
+import { Conf } from '@/config/page';
+
+export default function Document({ pagePath }) {
+  const { title = '-', pageMeta } = Conf[pagePath] || {};
   return (
     <html>
       <head>
-        <meta charSet="utf-8" />
-        <meta name="description" content="ice.js 3 fusion pro scaffold" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-        <Meta />
-        <Title />
+        <link
+          rel="icon"
+          href="/favicon.ico"
+          type="image/x-icon"
+        />
+        {/* <Meta /> */}
+        {(pageMeta || []).map((pm, pi) => {
+          return (
+            <meta
+              key={pi}
+              {...pm}
+            />
+          );
+        })}
+        {/* <Title /> */}
+        <title>{title}</title>
         <Links />
+        {/* <!-- Google tag (gtag.js) --> */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17046827907"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'AW-17046827907');",
+          }}
+        />
       </head>
       <body>
         <Main />
