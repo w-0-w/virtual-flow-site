@@ -60,7 +60,7 @@ const pageMeta = [
   //   content="https://files.accountboy.com/demon/ablogo-2b1fd2a561c84270b1d1625eee5b8d11.png">
   {
     property: 'og:image',
-    content: 'https://www.easybuys.cc/og-img.png',
+    content: 'og-img.png',
   },
   // <meta data-react-helmet="true" name="robots"
   //   content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
