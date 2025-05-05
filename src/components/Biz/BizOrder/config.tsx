@@ -43,8 +43,8 @@ const PayWayList: T_PayWay[] = [
     name: '支付宝',
     icon: LogoAlipay,
     xList: [],
-    desc: '手动支付',
-    subDesc: '',
+    desc: '',
+    subDesc: '暂停收款，请选择 USDT 支付',
     fn: (/* { pageParams } */) => {
       Message.show({
         type: 'warning',
@@ -58,8 +58,8 @@ const PayWayList: T_PayWay[] = [
     name: '微信支付',
     icon: LogoWechat,
     xList: [],
-    desc: '手动支付',
-    subDesc: '',
+    desc: '',
+    subDesc: '暂停收款，请选择 USDT 支付',
     fn: (/* { pageParams } */) => {
       Message.show({
         type: 'warning',
